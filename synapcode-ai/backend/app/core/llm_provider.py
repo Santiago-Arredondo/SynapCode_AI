@@ -1,15 +1,13 @@
 import google.generativeai as genai
+from app.core.config import GEMINI_API_KEY, GEMINI_MODEL
 
-from app.core.config import settings
+if GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
 
-if settings.gemini_api_key:
-    genai.configure(api_key=settings.gemini_api_key)
+def generate_with_gemini(prompt: str) -> str:
+    if not GEMINI_API_KEY:
+        return "Modo demo activo. Configura GEMINI_API_KEY."
 
-
-def generate_text(prompt: str) -> str:
-    if not settings.gemini_api_key:
-        return "Modo demo: no hay API key configurada."
-
-    model = genai.GenerativeModel(settings.gemini_model)
+    model = genai.GenerativeModel(GEMINI_MODEL)
     response = model.generate_content(prompt)
-    return response.text if hasattr(response, "text") else "Error generando contenido."
+    return response.text if hasattr(response, "text") else "No se pudo generar respuesta."
