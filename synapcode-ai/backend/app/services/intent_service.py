@@ -1,8 +1,6 @@
-from app.schemas.intent import IntentRequest
-
-
-def detect_intent(message: str) -> str:
+def infer_intent(message: str) -> str:
     text = message.lower()
+
     evaluator_keywords = ["error", "bug", "codigo", "revisa", "corrige", "funcion", "programa"]
     project_keywords = ["proyecto", "reto", "ejercicio", "practica", "challenge", "mini app"]
 
